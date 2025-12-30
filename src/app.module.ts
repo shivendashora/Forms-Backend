@@ -7,16 +7,12 @@ import { DashBoardModule } from './modules/dashboard/dashboard.module';
 import { FormsModule } from './modules/forms/forms.module';
 
 @Module({
-imports: [
+  imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: 'localhost',
-      port: 5432,
-      username: 'postgres',
-      password: '123',
-      database: 'newForms',
+      url: process.env.DATABASE_URL,
       autoLoadEntities: true,
-      synchronize: true, 
+      synchronize: true,
     }),
     LoginModule,
     DashBoardModule,
@@ -25,4 +21,4 @@ imports: [
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule {}
+export class AppModule { }
