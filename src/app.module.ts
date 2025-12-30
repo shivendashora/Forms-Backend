@@ -10,7 +10,10 @@ import { FormsModule } from './modules/forms/forms.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: process.env.DATABASE_URL,
+      url: 'postgresql://newforms_user:lkJCIBARfl64FMylu7507SKfJbt7x1Dy@dpg-d59ooju3jp1c73c6ipg0-a.oregon-postgres.render.com/newforms',
+      ssl: {
+        rejectUnauthorized: false,
+      },
       autoLoadEntities: true,
       synchronize: true,
     }),
