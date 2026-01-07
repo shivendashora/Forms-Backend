@@ -123,12 +123,26 @@ export class FormsService {
 
         if (dto.answers && dto.answers.length > 0) {
 
-            const submission = this.formSubmissionRepo.create({
-                formId: savedForm.id,
-                userId: 1, 
+            let submission = await this.formSubmissionRepo.findOne({
+                where: {
+                    formId: savedForm.id,
+                    userId: 1,
+                },
             });
 
-            const savedSubmission = await this.formSubmissionRepo.save(submission);
+            if (submission) {
+                submission.submittedAt = new Date();
+                await this.formSubmissionRepo.save(submission);
+            }
+            else {
+                submission = await this.formSubmissionRepo.save(
+                    this.formSubmissionRepo.create({
+                        formId: savedForm.id,
+                        userId: 1,
+                    })
+                );
+            }
+
 
             for (const element of dto.answers) {
 
@@ -147,15 +161,15 @@ export class FormsService {
 
                     await this.answerSubmissionRepo.update(
                         { id: existingAnswer.id },
-                        { 
-                            submissionId: savedSubmission.id,
-                            value 
+                        {
+                            submissionId: submission.id,
+                            value
                         }
                     );
                 } else {
                     await this.answerSubmissionRepo.save(
                         this.answerSubmissionRepo.create({
-                            submissionId: savedSubmission.id,
+                            submissionId: submission.id,
                             questionId: element.questionId,
                             value,
                         })
