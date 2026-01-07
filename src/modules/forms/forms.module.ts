@@ -3,7 +3,9 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import {
   FormsEntity,
   QuestionEntity,
-  AnswerOptionEntity
+  AnswerOptionEntity,
+  FormSubmissionEntity,
+  SubmissionAnswerEntity
 } from "../../entites/forms/form.entity";
 import { FormsService } from "./forms.service";
 import { FormsController } from "./forms.controller";
@@ -13,7 +15,9 @@ import { FormsController } from "./forms.controller";
     TypeOrmModule.forFeature([
       FormsEntity,
       QuestionEntity,
-      AnswerOptionEntity
+      AnswerOptionEntity,
+      FormSubmissionEntity,
+      SubmissionAnswerEntity
     ])
   ],
   controllers: [FormsController],

@@ -21,6 +21,21 @@ export class DashboardService {
 
         console.log("userId", userId)
 
+        const exists = await this.FormsEntity.find({
+            where:{
+                createdById:userId
+            }
+        })
+
+        if(exists){
+            await this.FormsEntity.update({
+                createdById:userId
+            },
+        {
+            shareAvailable:true
+        })
+        }
+
         const response = await this.FormsEntity.find({
             where: { createdById: userId }
         });

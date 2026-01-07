@@ -2,6 +2,11 @@ import { IsString, IsNumber, IsArray, ValidateNested, IsOptional } from "class-v
 import { Type } from "class-transformer";
 
 class CreateOptionDto {
+
+  @IsOptional()
+  @IsNumber()
+  id?: number;
+
   @IsString()
   value: string;
 
@@ -10,6 +15,12 @@ class CreateOptionDto {
 }
 
 class CreateQuestionDto {
+
+  @IsOptional()
+  @IsNumber()
+  id?: number;
+
+
   @IsString()
   question: string;
 
@@ -24,6 +35,14 @@ class CreateQuestionDto {
   @Type(() => CreateOptionDto)
   options: CreateOptionDto[];
 }
+
+class CreateAnswerDto {
+  @IsNumber()
+  questionId: number;
+
+  answer: string | string[];
+}
+
 
 export class CreateFormDto {
 
@@ -44,4 +63,8 @@ export class CreateFormDto {
   @ValidateNested({ each: true })
   @Type(() => CreateQuestionDto)
   questions: CreateQuestionDto[];
+
+  @IsOptional()
+  @IsArray()
+  answers: CreateAnswerDto[];
 }

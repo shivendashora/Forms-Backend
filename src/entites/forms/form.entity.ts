@@ -30,6 +30,9 @@ export class FormsEntity {
   @Column()
   createdById: number;
 
+  @Column()
+  shareAvailable:boolean;
+
   @ManyToOne(() => RegisterUserEntity, { onDelete: "CASCADE" })
   @JoinColumn({ name: "createdById" })
   createdBy: RegisterUserEntity;
