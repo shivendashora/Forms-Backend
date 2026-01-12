@@ -44,6 +44,7 @@ export class FormsService {
                 this.formRepo.create({
                     title: dto.title,
                     status: dto.status,
+                    shareAvailable:dto.shareAvailable,
                     createdById: dto.createdById,
                 })
             );

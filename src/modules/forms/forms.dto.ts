@@ -67,4 +67,7 @@ export class CreateFormDto {
   @IsOptional()
   @IsArray()
   answers: CreateAnswerDto[];
+
+  @IsOptional()
+  shareAvailable:boolean;
 }
