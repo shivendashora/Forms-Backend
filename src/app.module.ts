@@ -5,6 +5,7 @@ import { LoginModule } from './modules/Login/login,module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { DashBoardModule } from './modules/dashboard/dashboard.module';
 import { FormsModule } from './modules/forms/forms.module';
+import { MailModule } from './modules/mail/mail.module';
 
 @Module({
   imports: [
@@ -19,7 +20,8 @@ import { FormsModule } from './modules/forms/forms.module';
     }),
     LoginModule,
     DashBoardModule,
-    FormsModule
+    FormsModule,
+    MailModule
   ],
   controllers: [AppController],
   providers: [AppService],
