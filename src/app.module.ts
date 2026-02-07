@@ -11,7 +11,7 @@ import { MailModule } from './modules/mail/mail.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgresql://newforms_user:lkJCIBARfl64FMylu7507SKfJbt7x1Dy@dpg-d59ooju3jp1c73c6ipg0-a.oregon-postgres.render.com/newforms',
+      url: 'postgresql://formsdb_kxxu_user:W3E7bbFZMO0QQoOhmhGdfX8zdCS09bPV@dpg-d63d9svpm1nc7384v5og-a.oregon-postgres.render.com/formsdb_kxxu?sslmode=requirepostgresql://formsdb_kxxu_user:W3E7bbFZMO0QQoOhmhGdfX8zdCS09bPV@dpg-d63d9svpm1nc7384v5og-a.oregon-postgres.render.com/formsdb_kxxu',
       ssl: {
         rejectUnauthorized: false,
       },
