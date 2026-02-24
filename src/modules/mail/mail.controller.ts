@@ -6,8 +6,8 @@ export class MailController{
      constructor(private readonly mailService: MailService) {}
 
     @Post('/send-mail')
-    async sendMail(@Body() body: { emails: string[] }){
-        const response = await this.mailService.sendMail(body.emails)
+    async sendMail(@Body() body: { emails: string[]; formId: number }){
+        const response = await this.mailService.sendMail(body.emails, body.formId)
         return response
     }
 

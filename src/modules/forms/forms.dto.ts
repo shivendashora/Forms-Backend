@@ -76,4 +76,8 @@ export class ShareFormDto {
   @IsArray()
   @IsString({ each: true })
   emails: string[];
+
+
+  @IsNumber()
+  formId:number;
 }

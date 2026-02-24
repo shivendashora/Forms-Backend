@@ -93,11 +93,11 @@ export class FormsService {
                 const existingOptions = await this.optionRepo.find({ where: { questionId: savedQuestion.id } });
                 const existingOptionIds = existingOptions.map(o => o.id);
 
-                const incomingOptionIds = q.options
+                const incomingOptionIds = new Set(q.options
                     .filter(opt => typeof opt.id === 'number')
-                    .map(opt => opt.id);
+                    .map(opt => opt.id));
 
-                const toDeleteIds = existingOptionIds.filter(id => !incomingOptionIds.includes(id));
+                const toDeleteIds = existingOptionIds.filter(id => !incomingOptionIds.has(id));
                 if (toDeleteIds.length) {
                     await this.optionRepo.delete(toDeleteIds);
                 }
@@ -228,7 +228,7 @@ export class FormsService {
         return { message: "Form deleted successfully" };
     }
 
-    async shareForm(emails: string[]) {
+    async shareForm(emails: string[],formId:number) {
         // Save emails to usersforforms table
         for (const email of emails) {
             const user = this.usersRepo.create({
@@ -238,7 +238,7 @@ export class FormsService {
         }
 
         // Send emails
-        await this.mailService.sendMail(emails);
+        await this.mailService.sendMail(emails,formId);
 
         return {
             message: "Form shared successfully",
