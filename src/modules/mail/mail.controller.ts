@@ -1,4 +1,4 @@
-import { Controller, Post } from "@nestjs/common";
+import { Controller, Post, Body } from "@nestjs/common";
 import { MailService } from "./mail.service";
 
 @Controller('/mail')
@@ -6,8 +6,8 @@ export class MailController{
      constructor(private readonly mailService: MailService) {}
 
     @Post('/send-mail')
-    sendMail(){
-        const response = this.mailService.sendMail()
+    async sendMail(@Body() body: { emails: string[] }){
+        const response = await this.mailService.sendMail(body.emails)
         return response
     }
 

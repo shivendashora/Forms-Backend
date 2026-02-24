@@ -9,9 +9,6 @@ import {
 } from "typeorm";
 import { RegisterUserEntity } from "../login/login.entity";
 
-
-
-
 @Entity("forms")
 export class FormsEntity {
 

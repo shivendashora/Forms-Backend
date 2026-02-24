@@ -71,3 +71,9 @@ export class CreateFormDto {
   @IsOptional()
   shareAvailable:boolean;
 }
+
+export class ShareFormDto {
+  @IsArray()
+  @IsString({ each: true })
+  emails: string[];
+}

@@ -1,8 +1,9 @@
 import { Injectable } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
-import { AnswerOptionEntity, QuestionEntity, FormsEntity, FormSubmissionEntity, SubmissionAnswerEntity } from "../../entites/forms/form.entity";
+import { AnswerOptionEntity, QuestionEntity, FormsEntity, FormSubmissionEntity, SubmissionAnswerEntity, UsersEntity } from "../../entites/forms/form.entity";
 import { CreateFormDto } from "./forms.dto";
+import { MailService } from "../mail/mail.service";
 
 @Injectable()
 export class FormsService {
@@ -20,7 +21,12 @@ export class FormsService {
         private readonly formSubmissionRepo: Repository<FormSubmissionEntity>,
 
         @InjectRepository(SubmissionAnswerEntity)
-        private readonly answerSubmissionRepo: Repository<SubmissionAnswerEntity>
+        private readonly answerSubmissionRepo: Repository<SubmissionAnswerEntity>,
+
+        @InjectRepository(UsersEntity)
+        private readonly usersRepo: Repository<UsersEntity>,
+
+        private readonly mailService: MailService
     ) { }
 
     async createForm(dto: CreateFormDto) {
@@ -221,5 +227,22 @@ export class FormsService {
 
         return { message: "Form deleted successfully" };
     }
-}
 
+    async shareForm(emails: string[]) {
+        // Save emails to usersforforms table
+        for (const email of emails) {
+            const user = this.usersRepo.create({
+                email: email,
+            });
+            await this.usersRepo.save(user);
+        }
+
+        // Send emails
+        await this.mailService.sendMail(emails);
+
+        return {
+            message: "Form shared successfully",
+            emails: emails,
+        };
+    }
+}
