@@ -1,6 +1,6 @@
 import { Controller, Post, Body, Get, Param, ParseIntPipe, Delete } from "@nestjs/common";
 import { FormsService } from "./forms.service";
-import { CreateFormDto } from "./forms.dto";
+import { CreateFormDto, ShareFormDto } from "./forms.dto";
 
 @Controller("forms")
 export class FormsController {
@@ -24,5 +24,10 @@ export class FormsController {
             throw new TypeError("Invalid form ID");
         }
         return await this.formsService.deleteForm(formId);
+    }
+
+    @Post("share")
+    async shareForm(@Body() dto: ShareFormDto) {
+        return await this.formsService.shareForm(dto.emails);
     }
 }

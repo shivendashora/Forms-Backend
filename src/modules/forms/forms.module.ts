@@ -5,10 +5,12 @@ import {
   QuestionEntity,
   AnswerOptionEntity,
   FormSubmissionEntity,
-  SubmissionAnswerEntity
+  SubmissionAnswerEntity,
+  UsersEntity
 } from "../../entites/forms/form.entity";
 import { FormsService } from "./forms.service";
 import { FormsController } from "./forms.controller";
+import { MailModule } from "../mail/mail.module";
 
 @Module({
   imports: [
@@ -17,8 +19,10 @@ import { FormsController } from "./forms.controller";
       QuestionEntity,
       AnswerOptionEntity,
       FormSubmissionEntity,
-      SubmissionAnswerEntity
-    ])
+      SubmissionAnswerEntity,
+      UsersEntity
+    ]),
+    MailModule
   ],
   controllers: [FormsController],
   providers: [FormsService],

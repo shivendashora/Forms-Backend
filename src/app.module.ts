@@ -6,12 +6,16 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { DashBoardModule } from './modules/dashboard/dashboard.module';
 import { FormsModule } from './modules/forms/forms.module';
 import { MailModule } from './modules/mail/mail.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,   
+    }),
     TypeOrmModule.forRoot({
       type: 'postgres',
-      url: 'postgresql://formsdb_kxxu_user:W3E7bbFZMO0QQoOhmhGdfX8zdCS09bPV@dpg-d63d9svpm1nc7384v5og-a.oregon-postgres.render.com/formsdb_kxxu',
+      url: process.env.DATABASE_URL,
       ssl: {
         rejectUnauthorized: false,
       },
