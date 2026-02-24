@@ -228,7 +228,7 @@ export class FormsService {
         return { message: "Form deleted successfully" };
     }
 
-    async shareForm(emails: string[]) {
+    async shareForm(emails: string[], formId: number) {
         // Save emails to usersforforms table
         for (const email of emails) {
             const user = this.usersRepo.create({
@@ -237,8 +237,8 @@ export class FormsService {
             await this.usersRepo.save(user);
         }
 
-        // Send emails
-        await this.mailService.sendMail(emails);
+        // Send emails with form link
+        await this.mailService.sendMail(emails, formId);
 
         return {
             message: "Form shared successfully",

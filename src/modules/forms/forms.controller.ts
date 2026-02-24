@@ -28,6 +28,6 @@ export class FormsController {
 
     @Post("share")
     async shareForm(@Body() dto: ShareFormDto) {
-        return await this.formsService.shareForm(dto.emails);
+        return await this.formsService.shareForm(dto.emails, dto.formId);
     }
 }
